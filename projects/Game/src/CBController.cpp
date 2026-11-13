@@ -12,6 +12,8 @@ namespace
     struct CBParam // register(b0)
     {
         Color baseColor;
+        float Speed;
+        float padding[3];
     };
     constexpr int CBSlot = 0;
 
@@ -48,10 +50,22 @@ void CBController::Update()
     {
         colorIndex = (colorIndex + 1) % tableSize;
     }
-
+    else if (Input::GetKeyDown(Keyboard::Up))
+    {
+        colorIndex = (colorIndex - 1) % tableSize;
+    }
+    else if (Input::GetKey(Keyboard::Left))
+    {
+        WaveSpeed = 2;
+    }
+    else if (Input::GetKey(Keyboard::Right))
+    {
+        WaveSpeed = 0.5;
+    }
 
     CBParam cb;
 
+    cb.Speed = WaveSpeed;
     // カラーテーブルから現在のインデクスの色を設定
     cb.baseColor = colorTable[colorIndex];
 
